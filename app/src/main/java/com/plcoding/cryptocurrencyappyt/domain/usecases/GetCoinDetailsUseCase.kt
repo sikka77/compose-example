@@ -1,7 +1,7 @@
 package com.plcoding.cryptocurrencyappyt.domain.usecases
 
 import com.plcoding.cryptocurrencyappyt.commons.Resource
-import com.plcoding.cryptocurrencyappyt.data.models.Coin
+import com.plcoding.cryptocurrencyappyt.data.models.CoinDetail
 import com.plcoding.cryptocurrencyappyt.domain.repositories.CoinRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,11 +13,11 @@ import javax.inject.Inject
 class GetCoinDetailsUseCase @Inject constructor(
     private val coinRepository: CoinRepository
 ) {
-    operator fun invoke(): Flow<Resource<List<Coin>>> = flow {
+    operator fun invoke(coinId: String): Flow<Resource<CoinDetail>> = flow {
         try {
             emit(Resource.Loading())
-            val coins = coinRepository.getCoins()
-            emit(Resource.Success(coins))
+            val coinDetails = coinRepository.getCoinDetails(coinId)
+            emit(Resource.Success(coinDetails))
         } catch (e: java.lang.Exception) {
             emit(Resource.Error(e.localizedMessage ?: "Error encountered"))
         }
