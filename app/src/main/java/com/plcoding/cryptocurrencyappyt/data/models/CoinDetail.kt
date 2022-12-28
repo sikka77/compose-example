@@ -1,0 +1,30 @@
+package com.plcoding.cryptocurrencyappyt.data.models
+
+import com.google.gson.annotations.SerializedName
+
+data class CoinDetail(
+    val description: String,
+    @SerializedName("development_status") val developmentStatus: String,
+    @SerializedName("first_data_at") val firstDataAt: String,
+    @SerializedName("hardware_wallet") val hardwareWallet: Boolean,
+    @SerializedName("hash_algorithm") val hashAlgorithm: String,
+    val id: String,
+    @SerializedName("is_active") val isActive: Boolean,
+    @SerializedName("is_new") val isNew: Boolean,
+    @SerializedName("last_data_at") val lastDataAt: String,
+    val links: Links,
+    @SerializedName("links_extended") val linksExtended: List<LinksExtended>,
+    val logo: String,
+    val message: String,
+    val name: String,
+    val open_source: Boolean,
+    val org_structure: String,
+    val proof_type: String,
+    val rank: Int,
+    val started_at: String,
+    val symbol: String,
+    val tags: List<Tag>,
+    val team: List<TeamMembers>,
+    val type: String,
+    val whitepaper: Whitepaper
+)
