@@ -5,6 +5,8 @@ import com.plcoding.cryptocurrencyappyt.data.models.Coin
 import com.plcoding.cryptocurrencyappyt.domain.repositories.CoinRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import okio.IOException
+import retrofit2.HttpException
 import javax.inject.Inject
 
 /**
@@ -15,11 +17,13 @@ class GetCoinsUseCase @Inject constructor(
 ) {
     operator fun invoke(): Flow<Resource<List<Coin>>> = flow {
         try {
-            emit(Resource.Loading())
+            emit(Resource.Loading<List<Coin>>())
             val coins = coinRepository.getCoins()
-            emit(Resource.Success(coins))
-        } catch (e: Exception) {
-            emit(Resource.Error(e.localizedMessage ?: "Error encountered"))
+            emit(Resource.Success<List<Coin>>(coins))
+        } catch (e: HttpException) {
+            emit(Resource.Error<List<Coin>>(e.localizedMessage ?: "Error encountered"))
+        } catch (e: IOException) {
+            emit(Resource.Error<List<Coin>>("Error encountered"))
         }
     }
 }
